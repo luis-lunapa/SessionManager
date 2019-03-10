@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<header>
+							<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+							<h1>Iniciar Sesión</h1>
+						</header>						
+						<hr />
+						<form method="post" action="#">
+							<div class="fields">
+								<div class="field">
+									<input type="text" name="username" id="username" placeholder="Usuario" required />
+								</div>
+								<div class="field">
+									<input type="password" name="password" id="password" placeholder="Contrasena" required />
+								</div>
+							</div>
+							<ul class="actions special">
+								<li><input type="submit" class="button" id="login" value="Iniciar Sesión"></li>
+							</ul>
+						</form>
+						<hr />
+						
+						
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+							<li>&copy; Luis Luna</li><li>Design: <a>HTML5 UP</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+			<script>
+				$(document).ready(function() {
+
+					//alert("Bienvenido")
+
+
+				})
+				$('#login').click(function() {
+					var user = $('#username').val();
+					var pass = $('password').val();
+					var ready = true;
+
+					if (user == '') {
+						swal(
+						'Error',
+						'NOO Hay',
+						'error'
+						);
+						ready = false;
+
+					}
+
+					if (pass == '') {
+						swal(
+						'Error',
+						'NOO Hay',
+						'error'
+						);
+						ready = false;
+
+					}
+
+					
+
+					return false;
+
+
+
+				})
+
+
+			</script>
+
+
+
+
+
+	</body>
+</html>
