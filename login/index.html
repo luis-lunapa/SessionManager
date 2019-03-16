@@ -69,8 +69,9 @@
 
 				})
 				$('#login').click(function() {
+					//alert("Bienvenido")
 					var user = $('#username').val();
-					var pass = $('password').val();
+					var pass = $('#password').val();
 					var ready = true;
 
 					if (user == '') {
@@ -90,6 +91,38 @@
 						'error'
 						);
 						ready = false;
+
+					}
+
+					if (ready) {
+						let data = "username=" + user + "&password=" + pass
+
+						$.ajax({
+							dataType: 'json',
+							url: '/ws1/login.php',
+							data: data,
+							method: 'GET',
+							success: function(response){
+								console.log("Respuesta = " + response)
+
+
+							},
+							error: function (error) {
+								console.log("Error = " + error)
+
+
+
+							}
+
+
+
+
+						})
+
+
+
+
+
 
 					}
 
