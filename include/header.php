@@ -1,6 +1,7 @@
 <?
+include_once('DBManager.php');
 
-$db = new DBAuth();
+$db = new DBManager();
 
 
 

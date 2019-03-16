@@ -77,7 +77,7 @@
 					if (user == '') {
 						swal(
 						'Error',
-						'NOO Hay',
+						'Escribe tu nombre de usuario',
 						'error'
 						);
 						ready = false;
@@ -87,7 +87,7 @@
 					if (pass == '') {
 						swal(
 						'Error',
-						'NOO Hay',
+						'Escribe tu contraseña',
 						'error'
 						);
 						ready = false;
@@ -96,19 +96,20 @@
 
 					if (ready) {
 						let data = "username=" + user + "&password=" + pass
+						console.log("Data = " + data);
 
 						$.ajax({
 							dataType: 'json',
-							url: '/ws1/login.php',
+							url: '../ws1/login.php',
 							data: data,
 							method: 'GET',
 							success: function(response){
-								console.log("Respuesta = " + response)
+								console.log("Respuesta = " + response.data.idUser)
 
 
 							},
 							error: function (error) {
-								console.log("Error = " + error)
+								console.log("Error = " + error.responseText)
 
 
 
