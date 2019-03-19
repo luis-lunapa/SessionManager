@@ -104,7 +104,13 @@
 							data: data,
 							method: 'GET',
 							success: function(response){
-								console.log("Respuesta = " + response.data.idUser)
+								console.log("Respuesta = " + response.msg)
+								var user = {
+									idUser: response.data.idUser,
+									token: response.data.token	
+								}
+								localStorage.setItem("user", user);
+								window.location.href = '../internal/';
 
 
 							},

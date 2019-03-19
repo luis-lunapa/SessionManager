@@ -24,11 +24,7 @@ header('Content-Type: application/json');
 $json = array (
     'status'    => '0',
     'msg'       => 'Sin Ejecución',
-    'data'      => array (
-        'token'         => '',
-        'validoHasta'   => '',
-        'idUser'        => ''
-    )
+    'data'      => array()
 );
 
 if(isset($_GET['debug'])){
@@ -75,27 +71,60 @@ $result = $db->querySelect(
 );
 //$db->printQuery();
 $user =  $result->fetch_assoc();
+$idUser = $user['idUser'];
 
 if($user) {
 
-   
-    $json['data']['idUser'] = $user['idUser'];
+    $json['data']['idUser'] = $idUser;
 
 } else {
     $json['msg']            = 'Usuario o contraseña incorrectos';
     $json['status']         = 600;
     echo(json_encode($json));
     exit;
-    
-    echo "No se pudo";
+
 }
+$newToken = md5(uniqid(rand(), true));
+$result = $db->queryInsert(
+    "Se inserta el registro de login",
+    array("
+    INSERT INTO Login(
+        idUsuario,
+        timeToLive,
+        token
+    )
+    VALUES(
+        $idUser,
+        6000,
+        '$newToken'
+    )
+
+    ")
+);
+
+//$db->printQuery();
+
+if (!$result) { // No se pudo insertar login nuevo
+    $json['status'] = '600';
+
+    $json['msg']    = 'No se pudo generar login';
+   
+    echo(json_encode($json));
+    exit;
+}
+$idLogin = $result;
+
+$json['status']              = '200';
+$json['msg']                 = 'Datos correctos';
+$json['data']['token']       = $newToken;
+$json['data']['idUser']      = $idUser;
+$json['data']['username']    = $user['username'];
+$json['data']['name']        = $user['name'];
+$json['data']['email']       = $user['email'];
+$json['data']['description'] = $user['description'];
 
 
 
-
-$json['msg']            = $user['idUser'];
-
-    
 
 
 echo(json_encode($json));

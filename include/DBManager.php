@@ -50,7 +50,7 @@ class DBManager {
             return;
         }
 
-        
+        $this->queryTotal += 1;
 
         $this->query = $query;
         $this->comment = $comment;
@@ -61,13 +61,14 @@ class DBManager {
 
     }
 
+
+
     /*
 
-    Esta funcion obtiene de un registro un solo valor
+    Esta funcion hace un insert a la bd con transaccion
 
     */
-
-    public function queryValue($comment = "", $query = "") {
+    public function queryInsert($comment = "", $query = array()) {
 
         if ($comment == "") {
 
@@ -75,50 +76,46 @@ class DBManager {
             return;
         }
 
-        if ($query == "") {
+        if (sizeof($query) == 0 ) {
             echo "Query vacia";
             return;
         }
 
-        
+       
+        $this->queryTotal += 1;
 
-        $this->query = $query;
-        $this->comment = $comment;
+        $this->conn->query("START TRANSACTION");
 
-        $this->conn->query($quey);
+        foreach ($query as $q) {
+            $this->query = $q;
+
+            if (!$this->conn->query($q)) {
+            
+
+                $errorMsg = "Error al ejecutar query $q". mysqli_error($this->conn);
+                echo $errorMsg;
+                $this->conn->query("ROLLBACK");
+
+                return 0;
+            }
+
+            $id = $this->conn->insert_id;
+
+            $this->conn->query("COMMIT");
+            return $id;
+
+        }
+
+
+
 
 
     }
 
-    /*
 
-    Esta funcion obtiene varis registros con varios campos
+   
 
-    */
-
-    public function queryMatrix($comment = "", $query = "") {
-
-        if ($comment == "") {
-
-            echo "Query sin comentario.";
-            return;
-        }
-
-        if ($query == "") {
-            echo "Query vacia";
-            return;
-        }
-
-        
-
-        $this->query = $query;
-        $this->comment = $comment;
-
-        $this->conn->query($quey);
-
-
-    }
-
+    
     public function printQuery() {
         echo($this->query);
     }
