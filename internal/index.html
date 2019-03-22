@@ -149,32 +149,61 @@
 
 				$('#cerrarSesion').click(function() {
 
+					var idUsuario = localStorage.getItem('idUsuario');
+					var token = localStorage.getItem('token');
 					
-					swal(
-							'Bien',
-							'Hola ?',
-							'success'
-						)
+					var data = "idUsuario=" + idUsuario + "&token=" + token;
+
+					
+					$.ajax({
+							dataType: 'json',
+							url: '../ws1/logOut.php',
+							data: data,
+							method: 'GET',
+							success: function(response){
+								console.log("Respuesta = " + response.msg)
+
+								if (response.status != 200) {
+									swal(
+										'Error',
+										response.msg,
+										'error'
+									)
+								} else {
+									localStorage.removeItem('idUsuario')
+									localStorage.removeItem('token')
+
+									swal(
+										'Adios',
+										'Hasta pronto !!!',
+										'success'
+									).then (function() {
+										
+										window.location.href = '../';
+
+									});
+
+
+								}
+
+							},
+							error: function (error) {
+								console.log("Error = " + error.responseText)
+								swal(
+									'Error :(',
+									'Hubo un problema al cerrar tu sesión, intenta de nuevo',
+									'error'
+									)
+							}
+
+						});
 
 
 
 
 				});
 
-				function cerrarSesion() {
-
-
-
-
-
-
-
-
-
-					localStorage.removeItem('idUsuario')
-					localStorage.removeItem('token')
-
-				}
+				
 
 			</script>
 
