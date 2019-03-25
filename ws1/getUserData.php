@@ -65,15 +65,18 @@ $result = $db->querySelect(
         u.email,
         u.description
     FROM
-        Login l INNER JOIN User u ON
-        l.idUsuario = u.idUser
-
+        Login l 
+        INNER JOIN User u ON l.idUsuario = u.idUser
+        INNER JOIN Rol r ON r.idUsuario = u.idUser
+        
     WHERE
-        idUsuario = $idUsuario AND
-        token = '$token' AND
+        l.idUsuario = $idUsuario AND
+        token = '$token' AND 
+        r.idPermiso = 3 AND
         status = 'active'
     "
 );
+
 
 $login =  $result->fetch_assoc();
 
