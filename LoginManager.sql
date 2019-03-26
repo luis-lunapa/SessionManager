@@ -46,7 +46,7 @@ CREATE TABLE `Permission` (
 
 INSERT INTO `Permission` (`idPermission`, `permission`, `type`) VALUES
 (1, 'login', 'GET'),
-(2, 'register', 'POST');
+(3, 'getUserData', 'GET');
 
 
 
@@ -55,6 +55,10 @@ CREATE TABLE `Rol` (
   `idUsuario` int(11) NOT NULL,
   `idPermiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `Rol` (`idRol`, `idUsuario`, `idPermiso`) VALUES
+(1, 1, 1),
+(2, 1, 3);
 
 
 
